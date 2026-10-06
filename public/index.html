@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FFZ Order Panel</title>
+<style>
+:root{--bg:#08101d;--panel:#0e1929;--panel2:#111f33;--line:#20314a;--text:#eef5ff;--muted:#8fa2bc;--accent:#4f8cff;--accent2:#75a8ff;--ok:#28d17c;--warn:#ffc857;--bad:#ff5c6c;--shadow:0 18px 50px #0006}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% -10%,#17345d 0,#08101d 42%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit}.app{display:flex;min-height:100vh}.side{width:245px;background:#07101cdd;border-right:1px solid var(--line);padding:22px 16px;position:fixed;inset:0 auto 0 0}.brand{display:flex;align-items:center;gap:11px;padding:8px 8px 28px;font-weight:800;font-size:18px}.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#4f8cff,#8e62ff);display:grid;place-items:center;box-shadow:0 8px 25px #4f8cff33}.nav button{width:100%;background:none;border:0;color:var(--muted);padding:12px;border-radius:10px;text-align:left;cursor:pointer;margin:3px 0}.nav button:hover,.nav button.active{background:#15243a;color:#fff}.main{margin-left:245px;width:calc(100% - 245px);padding:26px;max-width:1500px}.top{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:22px}.title h1{margin:0 0 5px;font-size:27px}.title p{margin:0;color:var(--muted)}.actions{display:flex;gap:9px;align-items:center}.btn{border:1px solid var(--line);background:#122138;color:#fff;border-radius:10px;padding:10px 14px;cursor:pointer}.btn:hover{border-color:#3c5b82;background:#172a46}.btn.primary{background:var(--accent);border-color:var(--accent);font-weight:700}.btn.primary:hover{background:var(--accent2)}.grid{display:grid;grid-template-columns:1.4fr .8fr;gap:18px}.card{background:linear-gradient(180deg,#101d30,#0c1727);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:18px}.card h2{font-size:16px;margin:0 0 16px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field.full{grid-column:1/-1}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 7px}.input,.select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:10px;background:#091423;color:#fff;outline:0}.input:focus,.select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #4f8cff18}.product-box{border:1px solid var(--line);border-radius:12px;background:#091423;padding:12px;margin-top:10px}.product-row{display:flex;justify-content:space-between;gap:15px;align-items:center}.product-name{font-weight:700}.sku{font-size:11px;color:var(--muted);margin-top:4px}.price{font-size:18px;font-weight:800}.hint{font-size:11px;color:var(--muted);margin-top:7px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.stat{padding:15px;background:#0d1a2c;border:1px solid var(--line);border-radius:13px}.stat span{font-size:11px;color:var(--muted)}.stat b{display:block;margin-top:6px;font-size:20px}.balance{color:#70e4a5}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:12px 9px;border-bottom:1px solid #1b2a40;text-align:left;font-size:12px;white-space:nowrap}.table th{color:var(--muted);font-weight:600}.badge{padding:5px 8px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase}.pending{background:#4b3a14;color:#ffd66d}.processing{background:#173c5c;color:#7dc7ff}.success{background:#123d2a;color:#68e3a0}.failed,.refunded{background:#461b24;color:#ff8490}.empty{padding:35px;text-align:center;color:var(--muted)}.toast{position:fixed;right:24px;bottom:24px;max-width:360px;background:#14243a;border:1px solid #365070;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);display:none}.toast.show{display:block}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-card{width:min(650px,100%);background:#0d1929;border:1px solid var(--line);border-radius:16px;padding:20px}.close{float:right}.code{background:#07101c;border:1px solid var(--line);padding:12px;border-radius:9px;overflow:auto;font-size:12px;color:#b9c9de}.danger{color:#ff8894}.small{font-size:11px;color:var(--muted)}@media(max-width:950px){.side{width:72px}.brand span,.nav button span{display:none}.main{margin-left:72px;width:calc(100% - 72px);padding:18px}.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{grid-template-columns:1fr 1fr 1fr}}@media(max-width:620px){.side{display:none}.main{margin-left:0;width:100%}.top{align-items:flex-start}.actions{flex-wrap:wrap}.stats{grid-template-columns:1fr}.title h1{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand"><div class="logo">F</div><span>FFZ ORDER</span></div>
+  <nav class="nav">
+    <button class="active" onclick="showPage('order',this)">⚡ <span>Proses Order</span></button>
+    <button onclick="showPage('history',this)">▣ <span>Riwayat Order</span></button>
+    <button onclick="showPage('catalog',this)">◈ <span>Katalog Produk</span></button>
+    <button onclick="showPage('settings',this)">⚙ <span>Pengaturan</span></button>
+  </nav>
+</aside>
+
+<main class="main">
+<section id="orderPage">
+  <div class="top"><div class="title"><h1>Proses Pesanan</h1><p>Pilih game & produk dari FFZ Store, lalu masukkan data pelanggan.</p></div><div class="actions"><button class="btn" onclick="loadAll()">↻ Refresh</button></div></div>
+  <div class="stats">
+    <div class="stat"><span>Saldo FFZ</span><b id="balance" class="balance">-</b></div>
+    <div class="stat"><span>Kategori</span><b id="catCount">-</b></div>
+    <div class="stat"><span>Produk aktif</span><b id="prodCount">-</b></div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h2>Data Pesanan</h2>
+      <form id="orderForm" onsubmit="submitOrder(event)">
+        <div class="fields">
+          <div class="field">
+            <label>GAME / KATEGORI</label>
+            <select class="select" id="category" onchange="categoryChanged()" required><option value="">Memuat...</option></select>
+          </div>
+          <div class="field">
+            <label>PRODUK</label>
+            <select class="select" id="product" onchange="productChanged()" required><option value="">Pilih game dahulu</option></select>
+          </div>
+          <div class="field full">
+            <div class="product-box">
+              <div class="product-row"><div><div class="product-name" id="selectedName">Belum ada produk</div><div class="sku" id="selectedSku">-</div></div><div class="price" id="selectedPrice">Rp 0</div></div>
+              <div class="hint" id="serverHint">-</div>
+            </div>
+          </div>
+          <div class="field">
+            <label>USER ID / ID PLAYER</label>
+            <input class="input" id="userId" placeholder="Contoh: 123456789" autocomplete="off" required>
+          </div>
+          <div class="field" id="serverField">
+            <label>SERVER / ZONE ID <span class="small">(jika diperlukan)</span></label>
+            <input class="input" id="serverId" placeholder="Contoh: 1234" autocomplete="off">
+          </div>
+          <div class="field full">
+            <label>REFERENCE ID</label>
+            <input class="input" id="referenceId" placeholder="Otomatis dibuat saat dikirim" autocomplete="off">
+            <div class="hint">Dipakai sebagai ID unik/idempotency. Jangan gunakan reference yang sama untuk order berbeda.</div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:18px"><button class="btn primary" id="submitBtn" type="submit">⚡ PROSES ORDER</button></div>
+      </form>
+    </div>
+    <div class="card">
+      <h2>Ringkasan</h2>
+      <div id="summary" class="empty">Pilih produk untuk melihat ringkasan.</div>
+    </div>
+  </div>
+</section>
+
+<section id="historyPage" style="display:none">
+  <div class="top"><div class="title"><h1>Riwayat Order</h1><p>Order yang pernah diproses dari browser ini.</p></div><div class="actions"><button class="btn" onclick="refreshHistory()">↻ Cek Status</button><button class="btn" onclick="clearHistory()">Hapus Lokal</button></div></div>
+  <div class="card"><div class="table-wrap"><table class="table"><thead><tr><th>Waktu</th><th>Produk</th><th>Tujuan</th><th>Harga</th><th>Status</th><th>Order ID</th><th>Aksi</th></tr></thead><tbody id="historyBody"></tbody></table></div></div>
+</section>
+
+<section id="catalogPage" style="display:none">
+  <div class="top"><div class="title"><h1>Katalog Produk</h1><p>Data langsung dari katalog FFZ Store.</p></div><div class="actions"><button class="btn" onclick="loadCatalog()">↻ Sinkronkan</button></div></div>
+  <div class="card"><div class="fields"><div class="field full"><label>CARI PRODUK</label><input class="input" id="catalogSearch" oninput="renderCatalog()" placeholder="Cari nama atau SKU..."></div></div><div class="table-wrap" style="margin-top:15px"><table class="table"><thead><tr><th>Game</th><th>SKU</th><th>Produk</th><th>Harga</th><th>Server ID</th></tr></thead><tbody id="catalogBody"></tbody></table></div></div>
+</section>
+
+<section id="settingsPage" style="display:none">
+  <div class="top"><div class="title"><h1>Pengaturan</h1><p>Konfigurasi deployment Vercel.</p></div></div>
+  <div class="card">
+    <h2>Environment Variables</h2>
+    <p class="small">API key tidak ditampilkan dan tidak disimpan di browser. Atur di Vercel → Project → Settings → Environment Variables.</p>
+    <div class="code">FFZ_API_KEY = API key FFZ Store Anda<br>APP_URL = https://domain-vercel-anda.vercel.app</div>
+    <h2 style="margin-top:22px">Catatan keamanan</h2>
+    <p class="small">Dokumentasi FFZ mewajibkan X-API-Key dan IP allowlist. Karena Vercel menggunakan serverless runtime, IP keluar dapat berubah; whitelist IP harus mengikuti ketentuan FFZ Store. Jangan pernah menaruh API key langsung di index.html.</p>
+  </div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="detailModal"><div class="modal-card"><button class="btn close" onclick="closeModal()">Tutup</button><h2>Detail Order</h2><div id="detailContent"></div></div></div>
+
+<script>
+let catalog=[], selectedCategory=null;
+
+const rupiah = n => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0).replace('IDR','Rp');
+const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const toast = (msg, bad=false) => { const x=document.getElementById('toast'); x.textContent=msg; x.style.borderColor=bad?'#71303b':'#365070'; x.classList.add('show'); setTimeout(()=>x.classList.remove('show'),3500); };
+
+async function api(url, opt={}) {
+  const r=await fetch('/api'+url,opt);
+  const d=await r.json().catch(()=>({success:false,message:'Response tidak valid'}));
+  if(!r.ok || d.success===false) throw new Error(d.message||'Request gagal');
+  return d;
+}
+
+async function loadAll(){
+  try {
+    await Promise.all([loadCatalog(),loadAccount()]);
+    toast('Katalog dan saldo berhasil diperbarui.');
+  } catch(e){ toast(e.message,true); }
+}
+async function loadCatalog(){
+  const d=await api('/catalog');
+  catalog=[];
+  for(const group of (d.data?.categories||[])) {
+    for(const p of (group.items||[])) catalog.push({...p,categoryCode:group.category.code,categoryName:group.category.name,requiresServerId:!!group.category.requires_server_id});
+  }
+  const groups=[...new Map(catalog.map(p=>[p.categoryCode,{code:p.categoryCode,name:p.categoryName,requiresServerId:p.requiresServerId}])).values()];
+  const c=document.getElementById('category');
+  c.innerHTML='<option value="">Pilih game</option>'+groups.map(g=>`<option value="${esc(g.code)}">${esc(g.name)}</option>`).join('');
+  document.getElementById('catCount').textContent=groups.length;
+  document.getElementById('prodCount').textContent=catalog.length;
+  categoryChanged();
+  renderCatalog();
+}
+async function loadAccount(){
+  const d=await api('/account');
+  document.getElementById('balance').textContent=rupiah(d.data?.balance);
+}
+function categoryChanged(){
+  const code=document.getElementById('category').value;
+  selectedCategory=catalog.find(x=>x.categoryCode===code);
+  const list=catalog.filter(x=>x.categoryCode===code);
+  const p=document.getElementById('product');
+  p.innerHTML='<option value="">Pilih produk</option>'+list.map(x=>`<option value="${esc(x.sku)}">${esc(x.name)} — ${rupiah(x.price)}</option>`).join('');
+  document.getElementById('serverField').style.display=selectedCategory?.requiresServerId?'block':'none';
+  document.getElementById('serverHint').textContent=selectedCategory?.requiresServerId?'Game ini membutuhkan Server / Zone ID.':'Server / Zone ID tidak diwajibkan oleh kategori ini.';
+  productChanged();
+}
+function productChanged(){
+  const sku=document.getElementById('product').value;
+  const p=catalog.find(x=>x.sku===sku);
+  document.getElementById('selectedName').textContent=p?.name||'Belum ada produk';
+  document.getElementById('selectedSku').textContent=p?.sku||'-';
+  document.getElementById('selectedPrice').textContent=rupiah(p?.price);
+  const s=p?`Tujuan: ${document.getElementById('userId').value||'-'}${p.requiresServerId?` / ${document.getElementById('serverId').value||'-'}`:''}`:'Pilih produk untuk melanjutkan.';
+  document.getElementById('summary').innerHTML=p?`<div style="line-height:1.9"><b>${esc(p.name)}</b><br>SKU: <span class="small">${esc(p.sku)}</span><br>Harga modal: <b>${rupiah(p.price)}</b><br>${s}</div>`:'Pilih produk untuk melihat ringkasan.';
+}
+document.getElementById('userId').addEventListener('input',productChanged);
+document.getElementById('serverId').addEventListener('input',productChanged);
+
+async function submitOrder(e){
+  e.preventDefault();
+  const p=catalog.find(x=>x.sku===document.getElementById('product').value);
+  if(!p) return toast('Pilih produk terlebih dahulu.',true);
+  if(p.requiresServerId && !document.getElementById('serverId').value.trim()) return toast('Server / Zone ID wajib diisi untuk game ini.',true);
+  const btn=document.getElementById('submitBtn'); btn.disabled=true; btn.textContent='Memproses...';
+  try{
+    const body={product_sku:p.sku,user_id:document.getElementById('userId').value.trim(),server_id:document.getElementById('serverId').value.trim(),reference_id:document.getElementById('referenceId').value.trim()};
+    const d=await api('/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const o=d.data;
+    saveHistory({order_id:o.order_id,reference_id:o.reference_id,status:o.status,created_at:o.created_at,product:o.product,customer:o.customer,pricing:o.pricing,fulfillment:o.fulfillment});
+    toast(`Order berhasil dikirim: ${o.order_id}`);
+    showPage('history',document.querySelectorAll('.nav button')[1]);
+    renderHistory();
+    document.getElementById('orderForm').reset(); categoryChanged();
+    loadAccount();
+  }catch(err){ toast(err.message,true); }
+  finally{btn.disabled=false;btn.textContent='⚡ PROSES ORDER';}
+}
+function getHistory(){try{return JSON.parse(localStorage.getItem('ffz_orders')||'[]')}catch{return[]}}
+function saveHistory(o){const h=getHistory().filter(x=>x.reference_id!==o.reference_id);h.unshift(o);localStorage.setItem('ffz_orders',JSON.stringify(h.slice(0,100)))}
+function renderHistory(){
+  const body=document.getElementById('historyBody'), h=getHistory();
+  if(!h.length){body.innerHTML='<tr><td colspan="7" class="empty">Belum ada order.</td></tr>';return}
+  body.innerHTML=h.map(o=>`<tr><td>${new Date(o.created_at||Date.now()).toLocaleString('id-ID')}</td><td>${esc(o.product?.name||'-')}<div class="small">${esc(o.product?.sku||'')}</div></td><td>${esc(o.customer?.user_id||'-')}${o.customer?.server_id?` / ${esc(o.customer.server_id)}`:''}</td><td>${rupiah(o.pricing?.amount)}</td><td><span class="badge ${esc(o.status)}">${esc(o.status)}</span></td><td>${esc(o.order_id||'-')}</td><td><button class="btn" onclick="checkOrder('${encodeURIComponent(o.order_id||'')}')">Cek</button></td></tr>`).join('');
+}
+async function checkOrder(id){
+  if(!id)return;
+  try{const d=await api('/orders/'+id);saveHistory(d.data);renderHistory();toast(`Status: ${d.data.status}`);showDetail(d.data)}catch(e){toast(e.message,true)}
+}
+async function refreshHistory(){
+  const h=getHistory(); if(!h.length)return renderHistory();
+  for(const o of h.slice(0,30)){if(o.order_id){try{const d=await api('/orders/'+o.order_id);saveHistory(d.data)}catch{}}}
+  renderHistory();toast('Status order diperbarui.');
+}
+function clearHistory(){if(confirm('Hapus seluruh riwayat lokal dari browser ini?')){localStorage.removeItem('ffz_orders');renderHistory()}}
+function showDetail(o){
+  document.getElementById('detailContent').innerHTML=`<div class="code">${esc(JSON.stringify(o,null,2))}</div>`;
+  document.getElementById('detailModal').classList.add('show');
+}
+function closeModal(){document.getElementById('detailModal').classList.remove('show')}
+function renderCatalog(){
+  const q=(document.getElementById('catalogSearch')?.value||'').toLowerCase();
+  const rows=catalog.filter(p=>`${p.name} ${p.sku} ${p.categoryName}`.toLowerCase().includes(q));
+  document.getElementById('catalogBody').innerHTML=rows.map(p=>`<tr><td>${esc(p.categoryName)}</td><td>${esc(p.sku)}</td><td>${esc(p.name)}</td><td>${rupiah(p.price)}</td><td>${p.requiresServerId?'Ya':'Tidak'}</td></tr>`).join('')||'<tr><td colspan="5" class="empty">Produk tidak ditemukan.</td></tr>';
+}
+function showPage(page,el){
+  document.querySelectorAll('section[id$="Page"]').forEach(x=>x.style.display='none');
+  document.getElementById(page+'Page').style.display='block';
+  document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active')); if(el)el.classList.add('active');
+  if(page==='history')renderHistory(); if(page==='catalog')renderCatalog();
+}
+loadAll().catch(e=>toast(e.message,true));
+</script>
+</body>
+</html>
